@@ -5,21 +5,28 @@ import static com.example.watcher.utilities.DatabaseConfig.DATABASE_NAME;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-
-import com.example.watcher.data.model.Device;
-import com.example.watcher.data.model.Person;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
-@Database(entities = {Person.class, Device.class}, version = 1,exportSchema = true)
+import com.example.watcher.data.device.Device;
+
+import com.example.watcher.data.device.DeviceDao;
+import com.example.watcher.data.person.Person;
+import com.example.watcher.data.person.PersonDao;
+
+
+@Database(entities = {Person.class, Device.class}, version = 1, exportSchema = false)
+
 public abstract class AppDatabase extends RoomDatabase {
-    abstract PersonDao personDao();
+    public abstract PersonDao personDao();
 
-    abstract DeviceDao deviceDao();
+    public abstract DeviceDao deviceDao();
 
-    private static volatile AppDatabase instance;
+    private static  AppDatabase instance;
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {
@@ -29,6 +36,14 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static AppDatabase buildDatabase(Context context) {
-        return Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME).build();
+
+        return Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME).allowMainThreadQueries().
+//                addCallback(new Callback() {
+//                    @Override
+//                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+//                        super.onCreate(db);
+//                    }
+//                }).
+                build();
     }
 }

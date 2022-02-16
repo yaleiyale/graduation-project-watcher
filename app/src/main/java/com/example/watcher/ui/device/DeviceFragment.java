@@ -4,19 +4,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.watcher.adapters.DeviceAdapter;
 import com.example.watcher.databinding.FragmentDeviceBinding;
 
+import java.util.List;
 
-public class DeviceFragment extends Fragment {
+import dagger.hilt.android.AndroidEntryPoint;
 
+
+@AndroidEntryPoint
+public
+class DeviceFragment extends Fragment {
     private DeviceViewModel deviceViewModel;
     private FragmentDeviceBinding binding;
 
@@ -27,20 +32,40 @@ public class DeviceFragment extends Fragment {
 
         binding = FragmentDeviceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textDevice;
-        deviceViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
+        DeviceAdapter adapter = new DeviceAdapter();
+        binding.deviceList.setAdapter(adapter);
+        subscribeUi(adapter);
+        binding.button.setOnClickListener(l->{
+            deviceViewModel.deviceRepository.insert();
         });
-        return root;
+        setHasOptionsMenu(false);
+        return binding.getRoot();
+
+    }
+
+    private void subscribeUi(DeviceAdapter adapter) {
+        Observer observer = (Observer)(new DeviceObserver(adapter));
+        deviceViewModel.devices.observe(getViewLifecycleOwner(), observer);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+
+}
+class DeviceObserver implements Observer {
+final DeviceAdapter deviceAdapter;
+
+    DeviceObserver(DeviceAdapter deviceAdapter) {
+        this.deviceAdapter = deviceAdapter;
+    }
+
+    @Override
+    public void onChanged(Object o) {
+        List devices = (List)o;
+        this.deviceAdapter.submitList(devices);
     }
 }

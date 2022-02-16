@@ -1,6 +1,4 @@
-package com.example.watcher.data;
-
-import com.example.watcher.data.model.LoggedInUser;
+package com.example.watcher.data.login;
 
 import java.io.IOException;
 

@@ -1,11 +1,10 @@
 package com.example.watcher.di;
 
-import androidx.fragment.app.Fragment;
-
 import dagger.Module;
 import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
 
-
-
+@Module
+@InstallIn(SingletonComponent.class)
 public class NetworkModule {
 }

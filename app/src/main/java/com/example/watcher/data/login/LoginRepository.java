@@ -1,6 +1,4 @@
-package com.example.watcher.data;
-
-import com.example.watcher.data.model.LoggedInUser;
+package com.example.watcher.data.login;
 
 /**
  * Class that requests authentication and user information from the remote data source and

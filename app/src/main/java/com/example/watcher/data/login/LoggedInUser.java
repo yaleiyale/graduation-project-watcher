@@ -1,4 +1,4 @@
-package com.example.watcher.data.model;
+package com.example.watcher.data.login;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
