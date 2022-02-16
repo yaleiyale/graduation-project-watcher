@@ -28,7 +28,7 @@ class DeviceRepository {
 
     public void insert() {
         Device device = new Device();
-        device.customName = "iyihao";
+        device.customName = "网络摄像头";
         List<Device> l = new LinkedList<>();
         l.add(device);
         deviceDao.insertAll(l);

@@ -33,11 +33,11 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/device_item_image_height"
                 android:contentDescription="@string/all_device_item_image"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
+                android:src="@drawable/device_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/device_icon" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/plant_item_title"

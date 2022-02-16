@@ -13,4 +13,5 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="all_device_item_image">picture of device</string>
+    <string name="string_btn_add_device">添加门禁探头</string>
 </resources>
