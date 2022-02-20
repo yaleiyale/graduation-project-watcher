@@ -9,7 +9,6 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import io.reactivex.Completable;
 
 @Dao
 public interface DeviceDao {
@@ -17,6 +16,6 @@ public interface DeviceDao {
     LiveData<List<Device>> getDevices();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     void insertAll(List<Device> devices);
+    void insertDevices(List<Device> devices);
 
 }

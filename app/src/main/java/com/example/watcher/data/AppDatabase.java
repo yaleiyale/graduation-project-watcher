@@ -38,12 +38,12 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase buildDatabase(Context context) {
 
         return Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME).allowMainThreadQueries().
-//                addCallback(new Callback() {
-//                    @Override
-//                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
-//                        super.onCreate(db);
-//                    }
-//                }).
+                addCallback(new Callback() {
+                    @Override
+                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                        super.onCreate(db);
+                    }
+                }).
                 build();
     }
 }
