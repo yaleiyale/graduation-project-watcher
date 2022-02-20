@@ -16,7 +16,7 @@ import com.example.watcher.databinding.ListItemDeviceBinding;
 public class DeviceAdapter extends ListAdapter<Device,RecyclerView.ViewHolder> {
 
     public DeviceAdapter() {
-        super((DiffUtil.ItemCallback) (new DeviceDiffCallBack()));
+        super((DiffUtil.ItemCallback<Device>) (new DeviceDiffCallBack()));
     }
 
     @NonNull
@@ -31,8 +31,8 @@ public class DeviceAdapter extends ListAdapter<Device,RecyclerView.ViewHolder> {
         ((DeviceViewHolder) holder).bind(device);
     }
 
-    class DeviceViewHolder extends RecyclerView.ViewHolder {
-        private ListItemDeviceBinding binding;
+    static class DeviceViewHolder extends RecyclerView.ViewHolder {
+        private final ListItemDeviceBinding binding;
 
         public DeviceViewHolder(@NonNull ListItemDeviceBinding binding) {
             super(binding.getRoot());

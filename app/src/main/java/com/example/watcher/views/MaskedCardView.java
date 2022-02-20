@@ -1,22 +1,20 @@
 package com.example.watcher.views;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 
-import com.google.android.material.R.attr;
 import com.google.android.material.R.style;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.shape.ShapeAppearanceModel;
 import com.google.android.material.shape.ShapeAppearancePathProvider;
-import kotlin.jvm.JvmOverloads;
-import kotlin.jvm.internal.DefaultConstructorMarker;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import kotlin.jvm.JvmOverloads;
 
 public final class MaskedCardView extends MaterialCardView {
 
@@ -39,7 +37,7 @@ public final class MaskedCardView extends MaterialCardView {
     }
 
     @JvmOverloads
-    public MaskedCardView(@NotNull Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public MaskedCardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.pathProvider = new ShapeAppearancePathProvider();
         this.path = new Path();
@@ -47,25 +45,14 @@ public final class MaskedCardView extends MaterialCardView {
         this.rectF = new RectF(0.0F, 0.0F, 0.0F, 0.0F);
     }
 
-    // $FF: synthetic method
-    public MaskedCardView(Context var1, AttributeSet var2, int var3, int var4, DefaultConstructorMarker var5) {
-//        if ((var4 & 2) != 0) {
-//            var2 = (AttributeSet)null;
-//        }
-//
-//        if ((var4 & 4) != 0) {
-//            var3 = attr.materialCardViewStyle;
-//        }
-        this(var1, var2, var3);
-    }
 
     @JvmOverloads
     public MaskedCardView(@NotNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0, 4, (DefaultConstructorMarker) null);
+        this(context, attrs, 0);
     }
 
     @JvmOverloads
     public MaskedCardView(@NotNull Context context) {
-        this(context, (AttributeSet) null, 0, 6, (DefaultConstructorMarker) null);
+        this(context, (AttributeSet) null, 0);
     }
 }

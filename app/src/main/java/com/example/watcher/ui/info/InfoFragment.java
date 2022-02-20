@@ -28,12 +28,7 @@ public class InfoFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textInfo;
-        infoViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        infoViewModel.getText().observe(getViewLifecycleOwner(), s -> textView.setText(s));
         return root;
     }
 

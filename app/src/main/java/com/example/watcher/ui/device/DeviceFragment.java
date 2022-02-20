@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.watcher.adapters.DeviceAdapter;
+import com.example.watcher.data.device.Device;
 import com.example.watcher.databinding.FragmentDeviceBinding;
 
 import java.util.List;
@@ -31,20 +31,17 @@ class DeviceFragment extends Fragment {
                 new ViewModelProvider(this).get(DeviceViewModel.class);
 
         binding = FragmentDeviceBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
         DeviceAdapter adapter = new DeviceAdapter();
         binding.deviceList.setAdapter(adapter);
         subscribeUi(adapter);
-        binding.button.setOnClickListener(l->{
-            deviceViewModel.deviceRepository.insert();
-        });
+        binding.button.setOnClickListener(l -> deviceViewModel.deviceRepository.insert());
         setHasOptionsMenu(false);
         return binding.getRoot();
 
     }
 
     private void subscribeUi(DeviceAdapter adapter) {
-        Observer observer = (Observer)(new DeviceObserver(adapter));
+        DeviceObserver observer = new DeviceObserver(adapter);
         deviceViewModel.devices.observe(getViewLifecycleOwner(), observer);
     }
 
@@ -56,16 +53,17 @@ class DeviceFragment extends Fragment {
 
 
 }
-class DeviceObserver implements Observer {
-final DeviceAdapter deviceAdapter;
+
+class DeviceObserver implements Observer<List<Device>> {
+    final DeviceAdapter deviceAdapter;
 
     DeviceObserver(DeviceAdapter deviceAdapter) {
         this.deviceAdapter = deviceAdapter;
     }
 
     @Override
-    public void onChanged(Object o) {
-        List devices = (List)o;
+    public void onChanged(List<Device> devices) {
         this.deviceAdapter.submitList(devices);
     }
 }
+

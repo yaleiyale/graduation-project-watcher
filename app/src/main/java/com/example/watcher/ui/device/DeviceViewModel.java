@@ -1,15 +1,11 @@
 package com.example.watcher.ui.device;
 
 import androidx.lifecycle.LiveData;
-
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.watcher.data.device.Device;
 import com.example.watcher.data.device.DeviceRepository;
 
-
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
