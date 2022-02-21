@@ -1,12 +1,11 @@
 package com.example.watcher.ui.device;
 
-import android.annotation.SuppressLint;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,6 +20,7 @@ import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
@@ -29,8 +29,9 @@ public
 class DeviceFragment extends Fragment {
     private DeviceViewModel deviceViewModel;
     private FragmentDeviceBinding binding;
+    private final CompositeDisposable disposable = new CompositeDisposable();
 
-    Button mUpdateButton;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         deviceViewModel =
@@ -40,27 +41,16 @@ class DeviceFragment extends Fragment {
         DeviceAdapter adapter = new DeviceAdapter();
         binding.deviceList.setAdapter(adapter);
         subscribeUi(adapter);
-        mUpdateButton = binding.button;
         binding.button.setOnClickListener(l -> insert());
         setHasOptionsMenu(false);
         return binding.getRoot();
 
     }
 
-    private void insert() {
-
-        // Subscribe to updating the user name.
-        // Re-enable the button once the user name has been updated
-        deviceViewModel.deviceRepository.insert()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> mUpdateButton.setEnabled(true),
-                        throwable -> Log.e("hello", "Unable to update username", throwable));
-    }
-
-    private void subscribeUi(DeviceAdapter adapter) {
-        DeviceObserver observer = new DeviceObserver(adapter);
-        deviceViewModel.devices.observe(getViewLifecycleOwner(), observer);
+    @Override
+    public void onStop() {
+        super.onStop();
+        disposable.clear();
     }
 
     @Override
@@ -69,6 +59,19 @@ class DeviceFragment extends Fragment {
         binding = null;
     }
 
+    private void insert() {
+        binding.button.setEnabled(false);
+        disposable.add(deviceViewModel.deviceRepository.insert()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> binding.button.setEnabled(true),
+                        throwable -> Log.e("unable", "Unable to add device", throwable)));
+    }
+
+    private void subscribeUi(DeviceAdapter adapter) {
+        DeviceObserver observer = new DeviceObserver(adapter);
+        deviceViewModel.devices.observe(getViewLifecycleOwner(), observer);
+    }
 
 }
 

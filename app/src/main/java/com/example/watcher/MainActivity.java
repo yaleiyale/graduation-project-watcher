@@ -3,8 +3,6 @@ package com.example.watcher;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.WindowManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,14 +24,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                PackageManager.PERMISSION_GRANTED) {
-           return;
-        } else {
-            requestPermissions(
-                    new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE},
-                    1);
-        }
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+//                PackageManager.PERMISSION_GRANTED) {
+//           return;
+//        } else {
+//            requestPermissions(
+//                    new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE},
+//                    1);
+//        }
 
         com.example.watcher.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
