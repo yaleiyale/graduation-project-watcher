@@ -13,12 +13,12 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class DeviceViewModel extends ViewModel {
-    DeviceRepository deviceRepository;
+public class DeviceListViewModel extends ViewModel {
+  public   DeviceRepository deviceRepository;
     LiveData<List<Device>> devices;
 
     @Inject
-    public DeviceViewModel(DeviceRepository repository) {
+    public DeviceListViewModel(DeviceRepository repository) {
         this.deviceRepository = repository;
         devices = deviceRepository.getDevices();
     }

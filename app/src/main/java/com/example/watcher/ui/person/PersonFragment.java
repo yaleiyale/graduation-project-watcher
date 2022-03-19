@@ -14,6 +14,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.watcher.databinding.FragmentPersonBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class PersonFragment extends Fragment {
 
     private PersonViewModel personViewModel;

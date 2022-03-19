@@ -2,20 +2,24 @@ package com.example.watcher.adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.watcher.data.device.Device;
 import com.example.watcher.databinding.ListItemDeviceBinding;
+import com.example.watcher.ui.device.DeviceListFragmentDirections;
 
 
-public class DeviceAdapter extends ListAdapter<Device,RecyclerView.ViewHolder> {
+public class DeviceListAdapter extends ListAdapter<Device,RecyclerView.ViewHolder> {
 
-    public DeviceAdapter() {
+    public DeviceListAdapter() {
         super((DiffUtil.ItemCallback<Device>) (new DeviceDiffCallBack()));
     }
 
@@ -27,7 +31,7 @@ public class DeviceAdapter extends ListAdapter<Device,RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Device device = (Device)getItem(position);
+        Device device = getItem(position);
         ((DeviceViewHolder) holder).bind(device);
     }
 
@@ -37,11 +41,17 @@ public class DeviceAdapter extends ListAdapter<Device,RecyclerView.ViewHolder> {
         public DeviceViewHolder(@NonNull ListItemDeviceBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.setClickListener(view -> navigateToDeviceDetail(binding.getDevice(), view));
         }
 
         void bind(Device item) {
             binding.setDevice(item);
             binding.executePendingBindings();
+        }
+
+        void navigateToDeviceDetail(Device device, View view){
+            NavDirections action = DeviceListFragmentDirections.actionNavigationDeviceToDeviceDetailFragment(device.did);
+            Navigation.findNavController(view).navigate(action);
         }
     }
 }

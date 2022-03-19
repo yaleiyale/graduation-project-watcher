@@ -19,7 +19,51 @@
 
     <fragment
         android:id="@+id/navigation_device"
-        android:name="com.example.watcher.ui.device.DeviceFragment"
+        android:name="com.example.watcher.ui.device.DeviceListFragment"
         android:label="@string/title_device"
-        tools:layout="@layout/fragment_device" />
+        tools:layout="@layout/fragment_device_list" >
+        <action
+            android:id="@+id/action_navigation_device_to_deviceDetailFragment"
+            app:destination="@id/deviceDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_navigation_device_to_addDeviceFragment"
+            app:destination="@id/addDeviceFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/deviceDetailFragment"
+        android:name="com.example.watcher.ui.device.DeviceDetailFragment"
+        android:label="fragment_device_detail"
+        tools:layout="@layout/fragment_device_detail" >
+        <argument
+            android:name="myArg"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_deviceDetailFragment_to_navigation_device"
+            app:destination="@id/navigation_device"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDeviceFragment"
+        android:name="com.example.watcher.ui.device.AddDeviceFragment"
+        android:label="fragment_add_device"
+        tools:layout="@layout/fragment_add_device" >
+        <action
+            android:id="@+id/action_addDeviceFragment_to_navigation_device"
+            app:destination="@id/navigation_device"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 </navigation>

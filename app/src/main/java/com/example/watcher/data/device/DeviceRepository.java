@@ -25,9 +25,9 @@ class DeviceRepository {
         return deviceDao.getDevices();
     }
 
-    public Completable insert() {
+    public Completable insert(String name) {
         Device device = new Device();
-        device.customName = "网络摄像头";
+        device.customName = name;
         return deviceDao.insertDevice(device);
     }
 }
