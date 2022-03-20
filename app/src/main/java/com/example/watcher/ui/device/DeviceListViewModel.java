@@ -14,7 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class DeviceListViewModel extends ViewModel {
-  public   DeviceRepository deviceRepository;
+   DeviceRepository deviceRepository;
     LiveData<List<Device>> devices;
 
     @Inject

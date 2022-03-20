@@ -25,6 +25,10 @@ class DeviceRepository {
         return deviceDao.getDevices();
     }
 
+    public LiveData<Device> getDeviceById(int deviceId) {
+        return deviceDao.getDeviceById(deviceId);
+    }
+
     public Completable insert(String name) {
         Device device = new Device();
         device.customName = name;
