@@ -1,15 +1,15 @@
 package com.example.watcher.ui.device;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.watcher.R;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.watcher.databinding.FragmentDeviceDetailBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class DeviceDetailFragment extends Fragment {
 
     private DeviceDetailViewModel viewModel;
+    private FragmentDeviceDetailBinding binding;
 
     public DeviceDetailFragment() {
         // Required empty public constructor
@@ -29,10 +30,15 @@ public class DeviceDetailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         viewModel = new ViewModelProvider(this).get(DeviceDetailViewModel.class);
-        return inflater.inflate(R.layout.fragment_device_detail, container, false);
+
+        binding = FragmentDeviceDetailBinding.inflate(inflater, container, false);
+        viewModel.setCallback(() -> binding.textView.setText(viewModel.device.customName));
+        return binding.getRoot();
     }
+
+
 }

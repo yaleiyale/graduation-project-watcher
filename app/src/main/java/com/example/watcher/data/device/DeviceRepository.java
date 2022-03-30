@@ -9,6 +9,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 
 @Singleton
@@ -25,7 +27,7 @@ class DeviceRepository {
         return deviceDao.getDevices();
     }
 
-    public LiveData<Device> getDeviceById(int deviceId) {
+    public Flowable<Device> getDeviceById(int deviceId) {
         return deviceDao.getDeviceById(deviceId);
     }
 
