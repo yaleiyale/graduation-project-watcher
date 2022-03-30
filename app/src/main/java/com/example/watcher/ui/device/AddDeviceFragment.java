@@ -47,7 +47,7 @@ public class AddDeviceFragment extends Fragment {
         }else
         {
             binding.buttonAdding.setEnabled(false);
-            disposable.add(viewModel.deviceRepository.insert(name)
+            disposable.add(viewModel.insert(name)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> binding.buttonAdding.setEnabled(true),

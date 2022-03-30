@@ -36,4 +36,14 @@ class DeviceRepository {
         device.customName = name;
         return deviceDao.insertDevice(device);
     }
+
+    public Completable update(Device device)
+    {
+        return deviceDao.updateDevice(device);
+    }
+
+    public Completable delete(Device device)
+    {
+        return deviceDao.delete(device);
+    }
 }

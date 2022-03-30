@@ -22,20 +22,46 @@
             name="viewModel"
             type="com.example.watcher.ui.device.DeviceDetailViewModel" />
     </data>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center"
         android:background="#FFEB3B">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="25sp"
             android:text="@string/title_location" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_location" />
+            android:textSize="25sp"
+            android:text="@string/default_location" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_adjust"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/title_adjust_device" />
+            <Button
+                android:id="@+id/button_delete"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/title_delete_device"
+                android:layout_marginStart="15dp"/>
+        </LinearLayout>
+
+
     </LinearLayout>
 </layout>

@@ -1,6 +1,7 @@
 package com.example.watcher.ui.device;
 
 import android.util.Log;
+import android.view.View;
 
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
@@ -20,11 +21,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class DeviceDetailViewModel extends ViewModel {
     DeviceRepository deviceRepository;
     int deviceId;
-    public Device device;
+    Device device;
     CompositeDisposable mDisposable = new CompositeDisposable();
 
     public interface Callback {
-        void DoWork();
+        void OnLoad();
+
+        void OnDelete(View view);
     }
 
     private Callback mCallback;
@@ -34,23 +37,36 @@ public class DeviceDetailViewModel extends ViewModel {
         super();
         this.deviceRepository = repository;
         this.deviceId = DeviceDetailFragmentArgs.fromSavedStateHandle(savedStateHandle).getMyArg();
-
-
     }
 
     public void setCallback(Callback callback) {
         this.mCallback = callback;
-        work();
+        Load();
     }
 
-    public void work() {
+    public void Load() {
         mDisposable.add(deviceRepository.getDeviceById(deviceId)
                 .subscribeOn(Schedulers.io())
                 .subscribe(temp -> {
                             device = temp;
-                            mCallback.DoWork();
+                            mCallback.OnLoad();
                         },
                         throwable -> Log.e("no detail", "Unable to get detail", throwable)));
     }
 
+    public void adjust(String name) {
+        device.customName = name;
+        mDisposable.add(deviceRepository.update(device)
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::Load,
+                        throwable -> Log.e("no detail", "Unable to get detail", throwable)));
+    }
+
+    public void delete(View view) {
+        mCallback.OnDelete(view);
+        mDisposable.add(deviceRepository.delete(device)
+                .subscribeOn(Schedulers.io())
+                .subscribe(() -> {},
+                        throwable -> Log.e("no detail", "Unable to get detail", throwable)));
+    }
 }

@@ -11,16 +11,21 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.core.Completable;
 
 @HiltViewModel
 public class AddDeviceViewModel extends ViewModel {
-    public   DeviceRepository deviceRepository;
+    DeviceRepository deviceRepository;
     LiveData<List<Device>> devices;
+
     @Inject
     public AddDeviceViewModel(DeviceRepository repository) {
         this.deviceRepository = repository;
         devices = deviceRepository.getDevices();
     }
 
+    public Completable insert(String name) {
+        return deviceRepository.insert(name);
+    }
 
 }

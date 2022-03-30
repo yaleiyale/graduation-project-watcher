@@ -20,4 +20,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button_adding_device">添加设备</string>
+    <string name="title_delete_device">删除设备</string>
+    <string name="title_adjust_device">修改设备信息</string>
+    <string name="title_adjust_device_name">请输入新的设备信息</string>
+    <string name="title_cancel">取消</string>
+    <string name="title_confirm_adjust">确认修改</string>
 </resources>
