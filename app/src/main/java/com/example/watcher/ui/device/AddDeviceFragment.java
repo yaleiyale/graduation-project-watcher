@@ -55,6 +55,5 @@ public class AddDeviceFragment extends Fragment {
             Toast.makeText(getContext(), "添加成功", Toast.LENGTH_SHORT).show();
             binding.deviceName.setText("");
         }
-
     }
 }
