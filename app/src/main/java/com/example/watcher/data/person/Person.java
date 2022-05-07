@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "people")
 public class Person {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public int pid;
     public String name;
     public String imgUrl;
 }

@@ -31,7 +31,8 @@
            android:layout_height="wrap_content"
            android:clickable="true"
            android:layout_gravity="end"
-           android:src="@drawable/icon_add" />
+           android:src="@drawable/icon_add"
+           android:contentDescription="@string/todo" />
 
        <FrameLayout
            android:layout_width="match_parent"
@@ -47,7 +48,7 @@
                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                app:spanCount="@integer/grid_columns"
                tools:context="device_list"
-               tools:listitem="@layout/list_item_device">
+               tools:listitem="@layout/list_item_record">
 
            </androidx.recyclerview.widget.RecyclerView>
 

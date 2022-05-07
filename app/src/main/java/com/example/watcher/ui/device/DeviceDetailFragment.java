@@ -17,7 +17,6 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import com.example.watcher.R;
-import com.example.watcher.databinding.DialogAdjustDeviceBinding;
 import com.example.watcher.databinding.FragmentDeviceDetailBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;

@@ -9,13 +9,13 @@
         android:id="@+id/navigation_person"
         android:name="com.example.watcher.ui.person.PersonFragment"
         android:label="@string/title_person"
-        tools:layout="@layout/fragment_person" />
+        tools:layout="@layout/fragment_person_list" />
 
     <fragment
         android:id="@+id/navigation_info"
-        android:name="com.example.watcher.ui.info.InfoFragment"
+        android:name="com.example.watcher.ui.passRecord.RecordListFragment"
         android:label="@string/title_info"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/fragment_record_list" />
 
     <fragment
         android:id="@+id/navigation_device"

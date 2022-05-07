@@ -9,8 +9,12 @@
             name="clickListener"
             type="android.view.View.OnClickListener"/>
         <variable
+            name="person"
+            type="com.example.watcher.data.person.Person"/>
+        <variable
             name="device"
             type="com.example.watcher.data.device.Device"/>
+
     </data>
 
     <com.example.watcher.views.MaskedCardView
@@ -29,16 +33,30 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/device_item_image"
+                android:id="@+id/person_item_image"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/device_item_image_height"
-                android:contentDescription="@string/all_device_item_image"
+                android:contentDescription="@string/all_person_item_image"
                 android:scaleType="centerInside"
-                android:src="@drawable/device_icon"
+                app:imageFromUrl="@{person.imgUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/person_item_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@{person.name}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/person_item_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="person name"/>
             <TextView
                 android:id="@+id/device_item_title"
                 android:layout_width="0dp"
@@ -50,9 +68,9 @@
                 android:gravity="center_horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/device_item_image"
+                app:layout_constraintTop_toBottomOf="@id/person_item_title"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="camera"/>
+                tools:text="device name"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -13,39 +13,40 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.watcher.data.device.Device;
-import com.example.watcher.databinding.ListItemDeviceBinding;
+import com.example.watcher.data.person.Person;
+import com.example.watcher.databinding.ListItemPersonBinding;
 import com.example.watcher.ui.device.DeviceListFragmentDirections;
 
 
-public class DeviceListAdapter extends ListAdapter<Device,RecyclerView.ViewHolder> {
+public class PersonListAdapter extends ListAdapter<Person,RecyclerView.ViewHolder> {
 
-    public DeviceListAdapter() {
-        super(new DeviceDiffCallBack());
+    public PersonListAdapter() {
+        super(new PersonDiffCallBack());
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DeviceViewHolder(ListItemDeviceBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new personViewHolder(ListItemPersonBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Device device = getItem(position);
-        ((DeviceViewHolder) holder).bind(device);
+        Person person = getItem(position);
+        ((personViewHolder) holder).bind(person);
     }
 
-    static class DeviceViewHolder extends RecyclerView.ViewHolder {
-        private final ListItemDeviceBinding binding;
+    static class personViewHolder extends RecyclerView.ViewHolder {
+        private final ListItemPersonBinding binding;
 
-        public DeviceViewHolder(@NonNull ListItemDeviceBinding binding) {
+        public personViewHolder(@NonNull ListItemPersonBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            binding.setClickListener(view -> navigateToDeviceDetail(binding.getDevice(), view));
+           // binding.setClickListener(view -> navigateToDeviceDetail(binding.getPerson(), view));
         }
 
-        void bind(Device item) {
-            binding.setDevice(item);
+        void bind(Person item) {
+            binding.setPerson(item);
             binding.executePendingBindings();
         }
 
@@ -56,19 +57,20 @@ public class DeviceListAdapter extends ListAdapter<Device,RecyclerView.ViewHolde
     }
 }
 
-class DeviceDiffCallBack extends DiffUtil.ItemCallback<Device> {
+class PersonDiffCallBack extends DiffUtil.ItemCallback<Person> {
 
     @Override
-    public boolean areItemsTheSame(@NonNull Device oldItem, @NonNull Device newItem) {
-        return oldItem.did == newItem.did;
+    public boolean areItemsTheSame(@NonNull Person oldItem, @NonNull Person newItem) {
+        return oldItem.pid == newItem.pid;
     }
-
 
     @SuppressLint("DiffUtilEquals")
     @Override
-    public boolean areContentsTheSame(@NonNull Device oldItem, @NonNull Device newItem) {
+    public boolean areContentsTheSame(@NonNull Person oldItem, @NonNull Person newItem) {
         return oldItem == newItem;
     }
+
+
 }
 
 

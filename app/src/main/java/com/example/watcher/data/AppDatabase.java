@@ -15,18 +15,22 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.watcher.data.device.Device;
 
 import com.example.watcher.data.device.DeviceDao;
+import com.example.watcher.data.passRecord.PassRecord;
+import com.example.watcher.data.passRecord.PassRecordDao;
 import com.example.watcher.data.person.Person;
 import com.example.watcher.data.person.PersonDao;
 
 
-@Database(entities = {Person.class, Device.class}, version = 1, exportSchema = false)
+@Database(entities = {Person.class, Device.class, PassRecord.class}, version = 1, exportSchema = false)
 
 public abstract class AppDatabase extends RoomDatabase {
     public abstract PersonDao personDao();
 
     public abstract DeviceDao deviceDao();
 
-    private static  AppDatabase instance;
+    public abstract PassRecordDao passRecordDao();
+
+    private static AppDatabase instance;
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {
@@ -39,11 +43,11 @@ public abstract class AppDatabase extends RoomDatabase {
 
         return Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME).//allowMainThreadQueries().
                 addCallback(new Callback() {
-                    @Override
-                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                        super.onCreate(db);
-                    }
-                }).
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
+            }
+        }).
                 build();
     }
 }

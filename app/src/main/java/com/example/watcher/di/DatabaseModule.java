@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.example.watcher.data.AppDatabase;
 import com.example.watcher.data.device.DeviceDao;
+import com.example.watcher.data.passRecord.PassRecord;
+import com.example.watcher.data.passRecord.PassRecordDao;
 import com.example.watcher.data.person.PersonDao;
 
 import javax.inject.Singleton;
@@ -33,5 +35,8 @@ public class DatabaseModule {
     PersonDao providePersonDao(AppDatabase appDatabase) {
         return appDatabase.personDao();
     }
+
+    @Provides
+    PassRecordDao providePassRecordDao(AppDatabase appDatabase) { return appDatabase.passRecordDao(); }
 
 }
