@@ -1,29 +1,37 @@
 package com.example.watcher.data.login;
 
-/**
- * Class that requests authentication and user information from the remote data source and
- * maintains an in-memory cache of login status and user credentials information.
- */
+import com.example.watcher.api.NetService;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
+@Singleton
 public class LoginRepository {
 
-    private static volatile LoginRepository instance;
+    private final NetService netService;
 
-    private LoginDataSource dataSource;
-
-    // If user credentials will be cached in local storage, it is recommended it be encrypted
-    // @see https://developer.android.com/training/articles/keystore
     private LoggedInUser user = null;
 
-    // private constructor : singleton access
-    private LoginRepository(LoginDataSource dataSource) {
-        this.dataSource = dataSource;
+    private MyCallback mCallback;
+
+    public void setCallback(MyCallback callback) {
+        this.mCallback = callback;
     }
 
-    public static LoginRepository getInstance(LoginDataSource dataSource) {
-        if (instance == null) {
-            instance = new LoginRepository(dataSource);
-        }
-        return instance;
+    public interface MyCallback {
+        void OnLogin();
+
+        void OnFail();
+    }
+
+    @Inject
+    LoginRepository(NetService netService) {
+        this.netService = netService;
     }
 
     public boolean isLoggedIn() {
@@ -32,21 +40,30 @@ public class LoginRepository {
 
     public void logout() {
         user = null;
-        dataSource.logout();
+        netService.logout();
     }
 
     private void setLoggedInUser(LoggedInUser user) {
         this.user = user;
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<LoggedInUser> login(String username, String password) {
-        // handle login
-        Result<LoggedInUser> result = dataSource.login(username, password);
-        if (result instanceof Result.Success) {
-            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
-        }
-        return result;
+
+    public void login(String account, String password) {
+        Call<Boolean> call = netService.login(account, password);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.body()) {
+                    mCallback.OnLogin();
+                } else {
+                    mCallback.OnFail();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable throwable) {
+
+            }
+        });
     }
 }

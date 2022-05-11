@@ -4,7 +4,7 @@
     <string name="title_info">Info</string>
     <string name="title_device">Device</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">账号</string>
+    <string name="prompt_account">账号</string>
     <string name="prompt_password">密码</string>
     <string name="action_sign_in">登录</string>
     <string name="action_sign_in_short">Sign in</string>
