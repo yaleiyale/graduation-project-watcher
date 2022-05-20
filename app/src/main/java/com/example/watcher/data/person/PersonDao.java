@@ -7,8 +7,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.watcher.data.device.Device;
-
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -16,17 +14,17 @@ import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface PersonDao {
-    @Query("SELECT * FROM people ORDER BY pid")
+    @Query("SELECT * FROM people ORDER BY personId")
    LiveData<List<Person>>  getPeople();
 
-    @Query("SELECT * FROM people WHERE name =:personName ")
+    @Query("SELECT * FROM people WHERE personName =:personName ")
     Flowable<Person> getPersonByName(String personName);
 
-    @Query("SELECT * FROM people WHERE pid =:personId ")
+    @Query("SELECT * FROM people WHERE personId =:personId ")
     Flowable<Person> getPersonById(int personId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Person... person);
+    Completable insertAll(List<Person> persons);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertPerson(Person person);

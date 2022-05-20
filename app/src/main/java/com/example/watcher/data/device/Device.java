@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "devices")
 public class Device {
     @PrimaryKey(autoGenerate = true)
-    public int did;
+    public int deviceId;
     public String customName;
 }
 

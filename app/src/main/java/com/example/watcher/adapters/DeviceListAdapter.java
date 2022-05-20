@@ -50,7 +50,7 @@ public class DeviceListAdapter extends ListAdapter<Device,RecyclerView.ViewHolde
         }
 
         void navigateToDeviceDetail(Device device, View view){
-            NavDirections action = DeviceListFragmentDirections.actionNavigationDeviceToDeviceDetailFragment(device.did);
+            NavDirections action = DeviceListFragmentDirections.actionNavigationDeviceToDeviceDetailFragment(device.deviceId);
             Navigation.findNavController(view).navigate(action);
         }
     }
@@ -60,7 +60,7 @@ class DeviceDiffCallBack extends DiffUtil.ItemCallback<Device> {
 
     @Override
     public boolean areItemsTheSame(@NonNull Device oldItem, @NonNull Device newItem) {
-        return oldItem.did == newItem.did;
+        return oldItem.deviceId == newItem.deviceId;
     }
 
 

@@ -36,6 +36,7 @@ public class DeviceListFragment extends Fragment {
         deviceListViewModel =
                 new ViewModelProvider(this).get(DeviceListViewModel.class);
         binding = FragmentDeviceListBinding.inflate(inflater, container, false);
+
         DeviceListAdapter adapter = new DeviceListAdapter();
         binding.deviceList.setAdapter(adapter);
         subscribeUi(adapter);

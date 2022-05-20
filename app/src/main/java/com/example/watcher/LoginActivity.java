@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
+       // setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

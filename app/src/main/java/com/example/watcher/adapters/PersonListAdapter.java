@@ -51,7 +51,7 @@ public class PersonListAdapter extends ListAdapter<Person,RecyclerView.ViewHolde
         }
 
         void navigateToDeviceDetail(Device device, View view){
-            NavDirections action = DeviceListFragmentDirections.actionNavigationDeviceToDeviceDetailFragment(device.did);
+            NavDirections action = DeviceListFragmentDirections.actionNavigationDeviceToDeviceDetailFragment(device.deviceId);
             Navigation.findNavController(view).navigate(action);
         }
     }
@@ -61,7 +61,7 @@ class PersonDiffCallBack extends DiffUtil.ItemCallback<Person> {
 
     @Override
     public boolean areItemsTheSame(@NonNull Person oldItem, @NonNull Person newItem) {
-        return oldItem.pid == newItem.pid;
+        return oldItem.personId == newItem.personId;
     }
 
     @SuppressLint("DiffUtilEquals")

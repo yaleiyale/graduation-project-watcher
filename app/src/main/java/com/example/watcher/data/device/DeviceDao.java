@@ -20,7 +20,7 @@ public interface DeviceDao {
     @Query("SELECT * FROM devices ")
     LiveData<List<Device>> getDevices();
 
-    @Query("SELECT * FROM devices WHERE did = :deviceId")
+    @Query("SELECT * FROM devices WHERE deviceId = :deviceId")
     Flowable<Device> getDeviceById(int deviceId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -31,5 +31,8 @@ public interface DeviceDao {
 
     @Delete
      Completable delete(Device device);
+
+    @Insert
+    Completable insertAll(List<Device> devices);
 
 }

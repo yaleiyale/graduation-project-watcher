@@ -1,5 +1,7 @@
 package com.example.watcher.data.login;
 
+import androidx.annotation.NonNull;
+
 import com.example.watcher.api.NetService;
 
 import javax.inject.Inject;
@@ -52,8 +54,8 @@ public class LoginRepository {
         Call<Boolean> call = netService.login(account, password);
         call.enqueue(new Callback<Boolean>() {
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (response.body()) {
+            public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
+                if (Boolean.TRUE.equals(response.body())) {
                     mCallback.OnLogin();
                 } else {
                     mCallback.OnFail();
@@ -61,8 +63,8 @@ public class LoginRepository {
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable throwable) {
-
+            public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable throwable) {
+                mCallback.OnFail();
             }
         });
     }

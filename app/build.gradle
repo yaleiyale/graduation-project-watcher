@@ -4,7 +4,7 @@ plugins {
     id 'androidx.navigation.safeargs'
 }
 android {
-    compileSdk 32
+    compileSdk 31
 
     dataBinding {
         enabled = true
@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "com.example.watcher"
         minSdk 28
-        targetSdk 32
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -40,14 +40,15 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.example.watcher'
 }
 
 dependencies {
+    implementation 'com.alibaba.fastjson2:fastjson2:2.0.3'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-
-    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.android.volley:volley:1.2.0'
 
     implementation 'com.github.bumptech.glide:glide:4.10.0'
 
