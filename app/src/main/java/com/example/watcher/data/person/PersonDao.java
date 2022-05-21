@@ -14,8 +14,8 @@ import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface PersonDao {
-    @Query("SELECT * FROM people ORDER BY personId")
-   LiveData<List<Person>>  getPeople();
+    @Query("SELECT * FROM people ORDER BY personId desc")
+    LiveData<List<Person>> getPeople();
 
     @Query("SELECT * FROM people WHERE personName =:personName ")
     Flowable<Person> getPersonByName(String personName);

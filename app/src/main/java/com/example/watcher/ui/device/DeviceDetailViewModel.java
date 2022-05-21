@@ -23,13 +23,6 @@ public class DeviceDetailViewModel extends ViewModel {
     int deviceId;
     Device device;
     CompositeDisposable mDisposable = new CompositeDisposable();
-
-    public interface Callback {
-        void OnLoad();
-
-        void OnDelete(View view);
-    }
-
     private Callback mCallback;
 
     @Inject
@@ -56,6 +49,7 @@ public class DeviceDetailViewModel extends ViewModel {
 
     public void adjust(String name) {
         device.customName = name;
+        deviceRepository.updateDeviceNet(device);
         mDisposable.add(deviceRepository.update(device)
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::Load,
@@ -63,10 +57,20 @@ public class DeviceDetailViewModel extends ViewModel {
     }
 
     public void delete(View view) {
+        deviceRepository.deleteDeviceNet(device);
         mCallback.OnDelete(view);
         mDisposable.add(deviceRepository.delete(device)
                 .subscribeOn(Schedulers.io())
-                .subscribe(() -> {},
+                .subscribe(() -> {
+                        },
                         throwable -> Log.e("no detail", "Unable to get detail", throwable)));
+
+
+    }
+
+    public interface Callback {
+        void OnLoad();
+
+        void OnDelete(View view);
     }
 }

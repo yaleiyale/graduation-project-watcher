@@ -1,6 +1,9 @@
 package com.example.watcher.di;
 
-import com.example.watcher.api.NetService;
+import com.example.watcher.api.DeviceNetService;
+import com.example.watcher.api.PassRecordNetService;
+import com.example.watcher.api.PersonNetService;
+import com.example.watcher.api.UserNetService;
 
 import javax.inject.Singleton;
 
@@ -14,7 +17,22 @@ import dagger.hilt.components.SingletonComponent;
 public class NetworkModule {
     @Singleton
     @Provides
-    NetService provideNetService(){
-        return NetService.create();
+    UserNetService provideUserNetService() {
+        return UserNetService.create();
+    }
+
+    @Provides
+    PersonNetService providePersonNetService() {
+        return PersonNetService.create();
+    }
+
+    @Provides
+    DeviceNetService provideDeviceNetService() {
+        return DeviceNetService.create();
+    }
+
+    @Provides
+    PassRecordNetService providePassRecordNetService() {
+        return PassRecordNetService.create();
     }
 }

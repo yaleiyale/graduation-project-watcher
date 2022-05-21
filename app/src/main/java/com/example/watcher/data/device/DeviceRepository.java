@@ -1,24 +1,20 @@
 package com.example.watcher.data.device;
 
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONArray;
-import com.alibaba.fastjson2.JSONObject;
-import com.example.watcher.api.NetService;
-import com.example.watcher.ui.device.DeviceListViewModel;
-import com.google.gson.JsonObject;
+import com.example.watcher.api.DeviceNetService;
+import com.google.gson.Gson;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,25 +25,19 @@ import retrofit2.Response;
 public
 class DeviceRepository {
     DeviceDao deviceDao;
-    NetService netService;
+    DeviceNetService deviceNetService;
     DeviceList result;
-
-    public interface MyCallback {
-        void OnSuccess();
-
-        void OnFail();
-    }
-
     private MyCallback mCallback;
+
+    @Inject
+    DeviceRepository(DeviceDao deviceDao, DeviceNetService deviceNetService) {
+        this.deviceDao = deviceDao;
+        this.deviceNetService = deviceNetService;
+
+    }
 
     public void setCallback(MyCallback callback) {
         this.mCallback = callback;
-    }
-
-    @Inject
-    DeviceRepository(DeviceDao deviceDao, NetService netService) {
-        this.deviceDao = deviceDao;
-        this.netService = netService;
     }
 
     public LiveData<List<Device>> getDevices() {
@@ -58,8 +48,44 @@ class DeviceRepository {
         return deviceDao.getDeviceById(deviceId);
     }
 
+    public void updateDeviceNet(Device device) {
+        Gson gson = new Gson();
+        String json_device = gson.toJson(device);
+        Call<Boolean> call = deviceNetService.updateDevice(json_device);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable t) {
+
+            }
+        });
+    }
+
+    public void deleteDeviceNet(Device device) {
+        Gson gson = new Gson();
+        String json_device = gson.toJson(device);
+        Call<Boolean> call = deviceNetService.deleteDevice(json_device);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable t) {
+
+            }
+        });
+    }
+
+
     public void refreshLocal() {
-        Call<DeviceList> call = netService.getAllDevices();
+        Log.i("hello", "");
+        Call<DeviceList> call = deviceNetService.getAllDevices();
         call.enqueue(new Callback<DeviceList>() {
             @Override
             public void onResponse(@androidx.annotation.NonNull Call<DeviceList> call, @androidx.annotation.NonNull Response<DeviceList> response) {
@@ -79,7 +105,6 @@ class DeviceRepository {
         return deviceDao.insertAll(result.devices);
     }
 
-
     public Completable insert(String name) {
         Device device = new Device();
         device.customName = name;
@@ -92,5 +117,11 @@ class DeviceRepository {
 
     public Completable delete(Device device) {
         return deviceDao.delete(device);
+    }
+
+    public interface MyCallback {
+        void OnSuccess();
+
+        void OnFail();
     }
 }

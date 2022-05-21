@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface DeviceDao {
-    @Query("SELECT * FROM devices ")
+    @Query("SELECT * FROM devices order by deviceId desc ")
     LiveData<List<Device>> getDevices();
 
     @Query("SELECT * FROM devices WHERE deviceId = :deviceId")
@@ -30,9 +30,9 @@ public interface DeviceDao {
     Completable updateDevice(Device device);
 
     @Delete
-     Completable delete(Device device);
+    Completable delete(Device device);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertAll(List<Device> devices);
 
 }

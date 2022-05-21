@@ -13,20 +13,14 @@ public class LoginViewModel extends ViewModel {
     private final LoginRepository loginRepository;
     private MyCallback mCallback;
 
-    public void setCallback(MyCallback callback) {
-        this.mCallback = callback;
-    }
-
-    public interface MyCallback {
-        void OnLogin();
-
-        void OnFail();
-    }
-
     @Inject
     public LoginViewModel(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
 
+    }
+
+    public void setCallback(MyCallback callback) {
+        this.mCallback = callback;
     }
 
     public void login(String account, String password) {
@@ -41,8 +35,14 @@ public class LoginViewModel extends ViewModel {
                 mCallback.OnFail();
             }
         });
-        loginRepository.login(account,password);
+        loginRepository.login(account, password);
 
+    }
+
+    public interface MyCallback {
+        void OnLogin();
+
+        void OnFail();
     }
 
 }

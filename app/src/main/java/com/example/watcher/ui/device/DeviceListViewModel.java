@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.watcher.data.device.Device;
 import com.example.watcher.data.device.DeviceRepository;
-import com.example.watcher.ui.login.LoginViewModel;
 
 import java.util.List;
 

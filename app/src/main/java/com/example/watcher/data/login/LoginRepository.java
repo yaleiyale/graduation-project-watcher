@@ -2,7 +2,7 @@ package com.example.watcher.data.login;
 
 import androidx.annotation.NonNull;
 
-import com.example.watcher.api.NetService;
+import com.example.watcher.api.UserNetService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -15,25 +15,19 @@ import retrofit2.Response;
 @Singleton
 public class LoginRepository {
 
-    private final NetService netService;
+    private final UserNetService userNetService;
 
     private LoggedInUser user = null;
 
     private MyCallback mCallback;
 
+    @Inject
+    LoginRepository(UserNetService userNetService) {
+        this.userNetService = userNetService;
+    }
+
     public void setCallback(MyCallback callback) {
         this.mCallback = callback;
-    }
-
-    public interface MyCallback {
-        void OnLogin();
-
-        void OnFail();
-    }
-
-    @Inject
-    LoginRepository(NetService netService) {
-        this.netService = netService;
     }
 
     public boolean isLoggedIn() {
@@ -42,16 +36,15 @@ public class LoginRepository {
 
     public void logout() {
         user = null;
-        netService.logout();
+        userNetService.logout();
     }
 
     private void setLoggedInUser(LoggedInUser user) {
         this.user = user;
     }
 
-
     public void login(String account, String password) {
-        Call<Boolean> call = netService.login(account, password);
+        Call<Boolean> call = userNetService.login(account, password);
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
@@ -67,5 +60,12 @@ public class LoginRepository {
                 mCallback.OnFail();
             }
         });
+    }
+
+
+    public interface MyCallback {
+        void OnLogin();
+
+        void OnFail();
     }
 }

@@ -1,6 +1,5 @@
 package com.example.watcher.ui.person;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.watcher.adapters.PersonListAdapter;
 import com.example.watcher.data.person.Person;
 import com.example.watcher.databinding.FragmentPersonListBinding;
-import com.example.watcher.LoginActivity;
 
 import java.util.List;
 
@@ -27,9 +25,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 @AndroidEntryPoint
 public class PersonFragment extends Fragment {
 
+    private final CompositeDisposable disposable = new CompositeDisposable();
     private PersonViewModel personViewModel;
     private FragmentPersonListBinding binding;
-    private final CompositeDisposable disposable = new CompositeDisposable();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +37,7 @@ public class PersonFragment extends Fragment {
         PersonListAdapter adapter = new PersonListAdapter();
         binding.personList.setAdapter(adapter);
         subscribeUi(adapter);
-        binding.button.setOnClickListener(this::toInsert);
+
         setHasOptionsMenu(false);
         return binding.getRoot();
     }
@@ -52,7 +50,7 @@ public class PersonFragment extends Fragment {
         disposable.add(personViewModel.insert("李四")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> binding.button.setEnabled(true),
+                .subscribe(() -> {},
                         throwable -> Log.e("unable", "Unable to add device", throwable)));
     }
 

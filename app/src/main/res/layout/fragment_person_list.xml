@@ -25,14 +25,6 @@
         android:orientation="vertical"
         android:background="#FFEB3B">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:layout_gravity="end"
-            android:src="@drawable/icon_add"
-            android:contentDescription="@string/todo" />
 
         <FrameLayout
             android:layout_width="match_parent"

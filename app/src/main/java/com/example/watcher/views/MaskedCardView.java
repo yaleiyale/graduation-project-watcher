@@ -23,19 +23,6 @@ public final class MaskedCardView extends MaterialCardView {
     private final ShapeAppearanceModel shapeAppearance;
     private final RectF rectF;
 
-    protected void onDraw(@NotNull Canvas canvas) {
-        canvas.clipPath(this.path);
-        super.onDraw(canvas);
-    }
-
-
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        this.rectF.right = (float) w;
-        this.rectF.bottom = (float) h;
-        this.pathProvider.calculatePath(this.shapeAppearance, 1.0F, this.rectF, this.path);
-        super.onSizeChanged(w, h, oldw, oldh);
-    }
-
     @JvmOverloads
     public MaskedCardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -53,6 +40,18 @@ public final class MaskedCardView extends MaterialCardView {
 
     @JvmOverloads
     public MaskedCardView(@NotNull Context context) {
-        this(context, (AttributeSet) null, 0);
+        this(context, null, 0);
+    }
+
+    protected void onDraw(@NotNull Canvas canvas) {
+        canvas.clipPath(this.path);
+        super.onDraw(canvas);
+    }
+
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        this.rectF.right = (float) w;
+        this.rectF.bottom = (float) h;
+        this.pathProvider.calculatePath(this.shapeAppearance, 1.0F, this.rectF, this.path);
+        super.onSizeChanged(w, h, oldw, oldh);
     }
 }

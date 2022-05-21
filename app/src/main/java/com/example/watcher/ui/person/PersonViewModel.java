@@ -5,7 +5,6 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.watcher.data.device.DeviceRepository;
 import com.example.watcher.data.person.Person;
 import com.example.watcher.data.person.PersonRepository;
 

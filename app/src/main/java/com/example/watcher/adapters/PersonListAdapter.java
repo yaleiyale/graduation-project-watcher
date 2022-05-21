@@ -18,7 +18,7 @@ import com.example.watcher.databinding.ListItemPersonBinding;
 import com.example.watcher.ui.device.DeviceListFragmentDirections;
 
 
-public class PersonListAdapter extends ListAdapter<Person,RecyclerView.ViewHolder> {
+public class PersonListAdapter extends ListAdapter<Person, RecyclerView.ViewHolder> {
 
     public PersonListAdapter() {
         super(new PersonDiffCallBack());
@@ -42,7 +42,7 @@ public class PersonListAdapter extends ListAdapter<Person,RecyclerView.ViewHolde
         public personViewHolder(@NonNull ListItemPersonBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-           // binding.setClickListener(view -> navigateToDeviceDetail(binding.getPerson(), view));
+            // binding.setClickListener(view -> navigateToDeviceDetail(binding.getPerson(), view));
         }
 
         void bind(Person item) {
@@ -50,7 +50,7 @@ public class PersonListAdapter extends ListAdapter<Person,RecyclerView.ViewHolde
             binding.executePendingBindings();
         }
 
-        void navigateToDeviceDetail(Device device, View view){
+        void navigateToDeviceDetail(Device device, View view) {
             NavDirections action = DeviceListFragmentDirections.actionNavigationDeviceToDeviceDetailFragment(device.deviceId);
             Navigation.findNavController(view).navigate(action);
         }

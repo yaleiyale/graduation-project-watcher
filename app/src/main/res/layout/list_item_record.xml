@@ -5,15 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="clickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
+
         <variable
             name="person"
-            type="com.example.watcher.data.person.Person"/>
+            type="com.example.watcher.data.person.Person" />
+
         <variable
             name="device"
-            type="com.example.watcher.data.device.Device"/>
+            type="com.example.watcher.data.device.Device" />
+
+        <variable
+            name="record"
+            type="com.example.watcher.data.passRecord.PassRecord" />
 
     </data>
 
@@ -47,30 +54,56 @@
                 android:id="@+id/person_item_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_normal"
+                android:gravity="center_horizontal"
                 android:text="@{person.personName}"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toTopOf="@id/device_item_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/person_item_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="person name"/>
+                tools:text="person name" />
+
             <TextView
                 android:id="@+id/device_item_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_normal"
+                android:gravity="center_horizontal"
                 android:text="@{device.customName}"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toTopOf="@id/time_item_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/person_item_title"
+                tools:text="device name" />
+
+            <TextView
+                android:id="@+id/time_item_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@{record.time}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@id/result_item_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/device_item_title"
+                tools:text="record time" />
+
+            <TextView
+                android:id="@+id/result_item_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@{record.result.toString()}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="device name"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/time_item_title"
+                tools:text="record time" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

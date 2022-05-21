@@ -17,7 +17,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.device.DeviceListFragment">
+    tools:context=".ui.device.DeviceRecordFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,12 +25,13 @@
         android:background="#FFEB3B"
         android:orientation="vertical">
 
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/device_list"
+                android:id="@+id/record_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
@@ -39,8 +40,8 @@
                 android:paddingEnd="@dimen/card_side_margin"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="@integer/grid_columns"
-                tools:context="device_list"
-                tools:listitem="@layout/list_item_device">
+                tools:context="record_list"
+                tools:listitem="@layout/list_item_record">
 
             </androidx.recyclerview.widget.RecyclerView>
 

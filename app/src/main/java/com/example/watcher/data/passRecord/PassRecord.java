@@ -6,10 +6,12 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "records")
 public class PassRecord {
     @PrimaryKey(autoGenerate = true)
-    public int rid;
-    public int did;
-    public int pid;
-    public int result;
+    public int recordId;
+    public int deviceId;
+    public int personId;
+    public Boolean result;
     public String time;
+    public String imageUrl;
+
 
 }

@@ -18,7 +18,7 @@ public class BindingAdapters {
     public static void bindImageFromUrl(@NotNull ImageView view, @Nullable String imageUrl) {
         Intrinsics.checkNotNullParameter(view, "view");
         if (imageUrl != null && ((CharSequence) imageUrl).length() != 0) {
-            Glide.with(view.getContext()).load("http://10.241.125.154:8080/"+imageUrl).transition(DrawableTransitionOptions.withCrossFade()).into(view);
+            Glide.with(view.getContext()).load("http://10.241.125.154:8080/" + imageUrl).transition(DrawableTransitionOptions.withCrossFade()).into(view);
         }
 
     }

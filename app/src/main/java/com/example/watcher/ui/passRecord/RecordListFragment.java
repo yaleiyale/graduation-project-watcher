@@ -25,20 +25,18 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 @AndroidEntryPoint
 public class RecordListFragment extends Fragment {
 
+    private final CompositeDisposable disposable = new CompositeDisposable();
     private RecordListViewModel recordListViewModel;
     private FragmentRecordListBinding binding;
-    private final CompositeDisposable disposable = new CompositeDisposable();
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         recordListViewModel =
                 new ViewModelProvider(this).get(RecordListViewModel.class);
         binding = FragmentRecordListBinding.inflate(inflater, container, false);
-        RecordListAdapter adapter = new RecordListAdapter(recordListViewModel.deviceRepository, recordListViewModel.personRepository);
+        RecordListAdapter adapter = new RecordListAdapter(recordListViewModel.deviceRepository, recordListViewModel.personRepository, recordListViewModel.passRecordRepository);
         binding.recordList.setAdapter(adapter);
         subscribeUi(adapter);
-        binding.button.setOnClickListener(this::toInsert);
         setHasOptionsMenu(false);
         return binding.getRoot();
 
@@ -60,7 +58,7 @@ public class RecordListFragment extends Fragment {
         disposable.add(recordListViewModel.insert()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> binding.button.setEnabled(true),
+                .subscribe(()->{},
                         throwable -> Log.e("unable", "Unable to add device", throwable)));
     }
 

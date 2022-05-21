@@ -3,7 +3,7 @@ package com.example.watcher.data.person;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.example.watcher.api.NetService;
+import com.example.watcher.api.PersonNetService;
 
 import java.util.List;
 
@@ -20,11 +20,18 @@ import retrofit2.Response;
 public class PersonRepository {
 
     PersonDao personDao;
-    NetService netService;
+    PersonNetService personNetService;
     PersonList result;
+    private MyCallback mCallback;
+
+    @Inject
+    PersonRepository(PersonDao personDao, PersonNetService personNetService) {
+        this.personDao = personDao;
+        this.personNetService = personNetService;
+    }
 
     public void refreshLocal() {
-        Call<PersonList> call = netService.getAllPeople();
+        Call<PersonList> call = personNetService.getAllPeople();
         call.enqueue(new Callback<PersonList>() {
             @Override
             public void onResponse(@NonNull Call<PersonList> call, @NonNull Response<PersonList> response) {
@@ -39,22 +46,8 @@ public class PersonRepository {
         });
     }
 
-    public interface MyCallback {
-        void OnSuccess();
-
-        void OnFail();
-    }
-
-    private MyCallback mCallback;
-
     public void setCallback(MyCallback callback) {
         this.mCallback = callback;
-    }
-
-    @Inject
-    PersonRepository(PersonDao personDao, NetService netService) {
-        this.personDao = personDao;
-        this.netService = netService;
     }
 
     public Completable insert(String name) {
@@ -74,5 +67,11 @@ public class PersonRepository {
 
     public Completable insertAll() {
         return personDao.insertAll(result.people);
+    }
+
+    public interface MyCallback {
+        void OnSuccess();
+
+        void OnFail();
     }
 }

@@ -8,8 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.watcher.data.device.Device;
-
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -17,13 +15,13 @@ import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface PassRecordDao {
-    @Query("SELECT * FROM records")
+    @Query("SELECT * FROM records order by recordId desc")
     LiveData<List<PassRecord>> getRecords();
 
-    @Query("SELECT * FROM records WHERE did = :deviceId")
-    Flowable<PassRecord> getRecordByDid(int deviceId);
+    @Query("SELECT * FROM records WHERE deviceId = :deviceId")
+    LiveData<List<PassRecord>> getRecordByDid(int deviceId);
 
-    @Query("SELECT * FROM records WHERE pid = :personId")
+    @Query("SELECT * FROM records WHERE personId = :personId")
     Flowable<PassRecord> getRecordByPid(int personId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -34,4 +32,7 @@ public interface PassRecordDao {
 
     @Delete
     Completable delete(PassRecord passRecord);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertAll(List<PassRecord> records);
 }

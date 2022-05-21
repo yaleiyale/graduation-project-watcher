@@ -17,7 +17,6 @@ import com.example.watcher.adapters.DeviceListAdapter;
 import com.example.watcher.data.device.Device;
 import com.example.watcher.databinding.FragmentDeviceListBinding;
 
-
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -26,10 +25,9 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @AndroidEntryPoint
 public class DeviceListFragment extends Fragment {
+    private final CompositeDisposable disposable = new CompositeDisposable();
     private DeviceListViewModel deviceListViewModel;
     private FragmentDeviceListBinding binding;
-    private final CompositeDisposable disposable = new CompositeDisposable();
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +38,6 @@ public class DeviceListFragment extends Fragment {
         DeviceListAdapter adapter = new DeviceListAdapter();
         binding.deviceList.setAdapter(adapter);
         subscribeUi(adapter);
-        binding.button.setOnClickListener(this::toInsert);
         setHasOptionsMenu(false);
         return binding.getRoot();
 

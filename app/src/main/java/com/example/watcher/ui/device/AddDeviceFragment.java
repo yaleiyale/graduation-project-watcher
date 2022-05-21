@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-
 import com.example.watcher.databinding.FragmentAddDeviceBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -21,9 +20,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @AndroidEntryPoint
 public class AddDeviceFragment extends Fragment {
+    private final CompositeDisposable disposable = new CompositeDisposable();
     private AddDeviceViewModel viewModel;
     private FragmentAddDeviceBinding binding;
-    private final CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,11 +40,9 @@ public class AddDeviceFragment extends Fragment {
 
     private void insert() {
         String name = binding.deviceName.getText().toString();
-        if(name.equals(""))
-        {
+        if (name.equals("")) {
             Toast.makeText(getContext(), "请确定摄像头位置", Toast.LENGTH_SHORT).show();
-        }else
-        {
+        } else {
             binding.buttonAdding.setEnabled(false);
             disposable.add(viewModel.insert(name)
                     .subscribeOn(Schedulers.io())

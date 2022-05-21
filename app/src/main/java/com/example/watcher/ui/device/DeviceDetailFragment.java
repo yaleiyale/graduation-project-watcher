@@ -43,6 +43,7 @@ public class DeviceDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         viewModel = new ViewModelProvider(this).get(DeviceDetailViewModel.class);
         binding = FragmentDeviceDetailBinding.inflate(inflater, container, false);
+        binding.buttonWatch.setOnClickListener(this::watch);
         binding.buttonDelete.setOnClickListener(this::delete);
         binding.buttonAdjust.setOnClickListener(view -> adjust());
         viewModel.setCallback(new DeviceDetailViewModel.Callback() {
@@ -63,6 +64,11 @@ public class DeviceDetailFragment extends Fragment {
 
     public void delete(View view) {
         viewModel.delete(view);
+    }
+
+    public void watch(View view) {
+        NavDirections action = DeviceDetailFragmentDirections.actionDeviceDetailFragmentToDeviceRecordFragment(viewModel.deviceId);
+        Navigation.findNavController(view).navigate(action);
     }
 
     public void adjust() {

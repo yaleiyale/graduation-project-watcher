@@ -1,6 +1,5 @@
 package com.example.watcher.adapters;
 
-
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -18,13 +17,13 @@ import com.example.watcher.data.person.Person;
 import com.example.watcher.data.person.PersonRepository;
 import com.example.watcher.databinding.ListItemRecordBinding;
 
-public class RecordListAdapter extends ListAdapter<PassRecord, RecyclerView.ViewHolder> {
+public class DeviceRecordAdapter extends ListAdapter<PassRecord, RecyclerView.ViewHolder> {
     DeviceRepository deviceRepository;
     PersonRepository personRepository;
     PassRecordRepository passRecordRepository;
 
-    public RecordListAdapter(DeviceRepository deviceRepository, PersonRepository personRepository, PassRecordRepository passRecordRepository) {
-        super(new RecordDiffCallBack());
+    public DeviceRecordAdapter(DeviceRepository deviceRepository, PersonRepository personRepository, PassRecordRepository passRecordRepository) {
+        super(new DeviceRecordDiffCallBack());
         this.deviceRepository = deviceRepository;
         this.personRepository = personRepository;
         this.passRecordRepository = passRecordRepository;
@@ -33,7 +32,7 @@ public class RecordListAdapter extends ListAdapter<PassRecord, RecyclerView.View
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new recordViewHolder(ListItemRecordBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new DeviceRecordAdapter.DeviceRecordViewHolder(ListItemRecordBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -41,17 +40,17 @@ public class RecordListAdapter extends ListAdapter<PassRecord, RecyclerView.View
         PassRecord passRecord = getItem(position);
         Person person = personRepository.getPersonById(passRecord.personId).blockingFirst();
         Device device = deviceRepository.getDeviceById(passRecord.deviceId).blockingFirst();
-        ((recordViewHolder) holder).bind(person, device, passRecord);
+        ((DeviceRecordViewHolder)holder).bind(person, device, passRecord);
     }
 
-    static class recordViewHolder extends RecyclerView.ViewHolder {
+    static class DeviceRecordViewHolder extends RecyclerView.ViewHolder {
         private final ListItemRecordBinding binding;
 
-
-        public recordViewHolder(@NonNull ListItemRecordBinding binding) {
+        DeviceRecordViewHolder(ListItemRecordBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
+
 
         void bind(Person person, Device device, PassRecord record) {
             binding.setPerson(person);
@@ -62,7 +61,7 @@ public class RecordListAdapter extends ListAdapter<PassRecord, RecyclerView.View
     }
 }
 
-  class RecordDiffCallBack extends DiffUtil.ItemCallback<PassRecord> {
+class DeviceRecordDiffCallBack extends DiffUtil.ItemCallback<PassRecord> {
 
     @Override
     public boolean areItemsTheSame(@NonNull PassRecord oldItem, @NonNull PassRecord newItem) {
@@ -74,6 +73,5 @@ public class RecordListAdapter extends ListAdapter<PassRecord, RecyclerView.View
     public boolean areContentsTheSame(@NonNull PassRecord oldItem, @NonNull PassRecord newItem) {
         return oldItem == newItem;
     }
-
-
 }
+

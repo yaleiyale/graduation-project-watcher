@@ -11,9 +11,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-
 import com.example.watcher.data.device.Device;
-
 import com.example.watcher.data.device.DeviceDao;
 import com.example.watcher.data.passRecord.PassRecord;
 import com.example.watcher.data.passRecord.PassRecordDao;
@@ -24,12 +22,6 @@ import com.example.watcher.data.person.PersonDao;
 @Database(entities = {Person.class, Device.class, PassRecord.class}, version = 1, exportSchema = false)
 
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract PersonDao personDao();
-
-    public abstract DeviceDao deviceDao();
-
-    public abstract PassRecordDao passRecordDao();
-
     private static AppDatabase instance;
 
     public static AppDatabase getInstance(Context context) {
@@ -50,4 +42,10 @@ public abstract class AppDatabase extends RoomDatabase {
         }).
                 build();
     }
+
+    public abstract PersonDao personDao();
+
+    public abstract DeviceDao deviceDao();
+
+    public abstract PassRecordDao passRecordDao();
 }
