@@ -31,13 +31,16 @@ public class DeviceListViewModel extends ViewModel {
     }
 
     public void initData() {
+//        mDisposable.add(deviceRepository.deleteAll()
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(() -> {
+//                }, throwable -> Log.e("no detail", "Unable to get detail", throwable)));
         deviceRepository.setCallback(new DeviceRepository.MyCallback() {
             @Override
             public void OnSuccess() {
                 mDisposable.add(deviceRepository.insertAll()
                         .subscribeOn(Schedulers.io())
-                        .subscribe(() -> {
-                        }, throwable -> Log.e("no detail", "Unable to get detail", throwable)));
+                        .subscribe(() -> devices = deviceRepository.getDevices(), throwable -> Log.e("no detail", "Unable to get detail", throwable)));
             }
 
             @Override
@@ -45,6 +48,5 @@ public class DeviceListViewModel extends ViewModel {
 
             }
         });
-        deviceRepository.refreshLocal();
     }
 }

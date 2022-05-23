@@ -8,5 +8,6 @@ public class Device {
     @PrimaryKey(autoGenerate = true)
     public int deviceId;
     public String customName;
+    public String ip;
 }
 

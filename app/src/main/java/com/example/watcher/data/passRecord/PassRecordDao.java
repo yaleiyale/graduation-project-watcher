@@ -11,7 +11,6 @@ import androidx.room.Update;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface PassRecordDao {
@@ -22,7 +21,7 @@ public interface PassRecordDao {
     LiveData<List<PassRecord>> getRecordByDid(int deviceId);
 
     @Query("SELECT * FROM records WHERE personId = :personId")
-    Flowable<PassRecord> getRecordByPid(int personId);
+    LiveData<List<PassRecord>> getRecordByPid(int personId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertRecord(PassRecord passRecord);
@@ -33,6 +32,22 @@ public interface PassRecordDao {
     @Delete
     Completable delete(PassRecord passRecord);
 
+    @Query("DELETE  FROM records WHERE recordId>0")
+    Completable deleteRecords();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertAll(List<PassRecord> records);
+
+
+    @Query("DELETE  FROM records WHERE personId =:personId")
+    Completable deleteByPid(int personId);
+
+    @Query("DELETE  FROM records WHERE deviceId =:deviceId")
+    Completable deleteByDid(int deviceId);
+
+    @Query("SELECT * FROM records WHERE result = 1 order by recordId desc")
+    LiveData<List<PassRecord>> showPass();
+
+    @Query("SELECT * FROM records WHERE result = 0 order by recordId desc")
+    LiveData<List<PassRecord>> showBan();
 }

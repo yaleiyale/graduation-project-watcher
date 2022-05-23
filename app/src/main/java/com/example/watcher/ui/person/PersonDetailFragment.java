@@ -1,4 +1,4 @@
-package com.example.watcher.ui.device;
+package com.example.watcher.ui.person;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -17,21 +17,18 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import com.example.watcher.R;
-import com.example.watcher.data.device.Device;
-import com.example.watcher.databinding.FragmentDeviceDetailBinding;
+import com.example.watcher.data.person.Person;
+import com.example.watcher.databinding.FragmentPersonDetailBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class DeviceDetailFragment extends Fragment {
+public class PersonDetailFragment extends Fragment {
+    private PersonDetailViewModel viewModel;
+    private FragmentPersonDetailBinding binding;
 
-    private DeviceDetailViewModel viewModel;
-    private FragmentDeviceDetailBinding binding;
-
-    public DeviceDetailFragment() {
-        // Required empty public constructor
+    public PersonDetailFragment() {
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,51 +38,38 @@ public class DeviceDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        viewModel = new ViewModelProvider(this).get(DeviceDetailViewModel.class);
-        binding = FragmentDeviceDetailBinding.inflate(inflater, container, false);
-        binding.buttonOpen.setOnClickListener(this::open);
-        binding.buttonWatch.setOnClickListener(this::watch);
-        binding.buttonDelete.setOnClickListener(this::delete);
+        viewModel = new ViewModelProvider(this).get(PersonDetailViewModel.class);
+        binding = FragmentPersonDetailBinding.inflate(inflater, container, false);
         binding.buttonAdjust.setOnClickListener(view -> adjust());
-        viewModel.setCallback(new DeviceDetailViewModel.Callback() {
+        binding.buttonDelete.setOnClickListener(this::delete);
+        binding.buttonWatch.setOnClickListener(this::watch);
+        //binding.buttonPower.setOnClickListener(this::change);
+        viewModel.setCallback(new PersonDetailViewModel.Callback() {
             @Override
-            public void OnLoad(Device device) {
-                viewModel.device = device;
-                binding.setDevice(viewModel.device);
+            public void OnLoad(Person person) {
+                viewModel.person = person;
+                binding.setPerson(viewModel.person);
             }
 
             @Override
             public void OnDelete(View view) {
-//                NavDirections action = DeviceDetailFragmentDirections.actionDeviceDetailFragmentToNavigationDevice();
+//                NavDirections action = PersonDetailFragmentDirections.actionPersonDetailFragmentToNavigationPerson();
 //                Navigation.findNavController(view).navigate(action);
                 Toast.makeText(getContext(), "删除成功", Toast.LENGTH_SHORT).show();
+
             }
         });
         return binding.getRoot();
     }
 
-    private void open(View view) {
-        viewModel.open();
-    }
-
-    public void delete(View view) {
-        viewModel.delete(view);
-    }
-
-    public void watch(View view) {
-        NavDirections action = DeviceDetailFragmentDirections.actionDeviceDetailFragmentToDeviceRecordFragment(viewModel.deviceId);
-        Navigation.findNavController(view).navigate(action);
-    }
-
-    public void adjust() {
+    private void adjust() {
         customDialog();
     }
 
-    public void customDialog() {
+    private void customDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         final AlertDialog dialog = builder.create();
-        View dialogView = View.inflate(getContext(), R.layout.dialog_adjust_device, null);
+        View dialogView = View.inflate(getContext(), R.layout.dialog_adjust_person, null);
         dialog.setView(dialogView);
         dialog.show();
 
@@ -101,10 +85,24 @@ public class DeviceDetailFragment extends Fragment {
                 return;
             }
             viewModel.adjust(name);//进行数据更新
-            Toast.makeText(getContext(), "设备信息：" + name, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "人员名称：" + name, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
 
         btn_cancel.setOnClickListener(view -> dialog.dismiss());
     }
+
+    private void change(View view) {
+    }
+
+    private void watch(View view) {
+        NavDirections action = PersonDetailFragmentDirections.actionPersonDetailFragmentToPersonRecordFragment(viewModel.personId);
+        Navigation.findNavController(view).navigate(action);
+    }
+
+    private void delete(View view) {
+        viewModel.delete(view);
+    }
+
+
 }

@@ -18,14 +18,14 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
-public class PersonViewModel extends ViewModel {
+public class PersonListViewModel extends ViewModel {
 
     PersonRepository personRepository;
     LiveData<List<Person>> people;
     CompositeDisposable mDisposable = new CompositeDisposable();
 
     @Inject
-    public PersonViewModel(PersonRepository repository) {
+    public PersonListViewModel(PersonRepository repository) {
         this.personRepository = repository;
         initData();
         people = personRepository.getPeople();
@@ -36,13 +36,16 @@ public class PersonViewModel extends ViewModel {
     }
 
     public void initData() {
+//        mDisposable.add(personRepository.deleteAll()
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(() -> {
+//                }, throwable -> Log.e("no detail", "Unable to get detail", throwable)));
         personRepository.setCallback(new PersonRepository.MyCallback() {
             @Override
             public void OnSuccess() {
                 mDisposable.add(personRepository.insertAll()
                         .subscribeOn(Schedulers.io())
-                        .subscribe(() -> {
-                        }, throwable -> Log.e("no detail", "Unable to get detail", throwable)));
+                        .subscribe(() -> people = personRepository.getPeople(), throwable -> Log.e("no detail", "Unable to get detail", throwable)));
             }
 
             @Override

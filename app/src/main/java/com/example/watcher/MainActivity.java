@@ -33,14 +33,14 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET},
                     1);
         }
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-       // setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
         com.example.watcher.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-       // ActionBar actionBar = getSupportActionBar();
-       // assert actionBar != null;
-        //actionBar.hide();
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

@@ -1,5 +1,7 @@
 package com.example.watcher.api;
 
+import static com.example.watcher.adapters.BindingAdapters.SERVER_IP;
+
 import com.example.watcher.data.device.DeviceList;
 
 import retrofit2.Call;
@@ -14,7 +16,7 @@ public interface DeviceNetService {
     static DeviceNetService create() {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://10.241.125.154:8080")
+                .baseUrl("http://" + SERVER_IP + ":8080")
                 .build().create(DeviceNetService.class);
     }
 
@@ -28,4 +30,8 @@ public interface DeviceNetService {
     @POST("/deletedevice")
     @FormUrlEncoded
     Call<Boolean> deleteDevice(@Field("json_device") String json_device);
+
+    @POST("/opendoor")
+    @FormUrlEncoded
+    Call<Boolean> openDoor(@Field("did") int did);
 }

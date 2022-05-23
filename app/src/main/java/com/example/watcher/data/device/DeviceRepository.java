@@ -1,8 +1,6 @@
 package com.example.watcher.data.device;
 
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
@@ -24,16 +22,15 @@ import retrofit2.Response;
 @Singleton
 public
 class DeviceRepository {
+    public DeviceNetService deviceNetService;
+    public DeviceList result;
     DeviceDao deviceDao;
-    DeviceNetService deviceNetService;
-    DeviceList result;
     private MyCallback mCallback;
 
     @Inject
     DeviceRepository(DeviceDao deviceDao, DeviceNetService deviceNetService) {
         this.deviceDao = deviceDao;
         this.deviceNetService = deviceNetService;
-
     }
 
     public void setCallback(MyCallback callback) {
@@ -84,7 +81,6 @@ class DeviceRepository {
 
 
     public void refreshLocal() {
-        Log.i("hello", "");
         Call<DeviceList> call = deviceNetService.getAllDevices();
         call.enqueue(new Callback<DeviceList>() {
             @Override
@@ -117,6 +113,10 @@ class DeviceRepository {
 
     public Completable delete(Device device) {
         return deviceDao.delete(device);
+    }
+
+    public Completable deleteAll() {
+        return deviceDao.deleteDevices();
     }
 
     public interface MyCallback {

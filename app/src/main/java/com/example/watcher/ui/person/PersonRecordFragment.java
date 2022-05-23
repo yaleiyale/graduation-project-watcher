@@ -1,4 +1,4 @@
-package com.example.watcher.ui.device;
+package com.example.watcher.ui.person;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.watcher.adapters.DeviceRecordAdapter;
+import com.example.watcher.adapters.PersonRecordAdapter;
 import com.example.watcher.data.passRecord.PassRecord;
-import com.example.watcher.databinding.FragmentDeviceRecordBinding;
+import com.example.watcher.databinding.FragmentPersonRecordBinding;
 
 import java.util.List;
 
@@ -20,13 +20,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @AndroidEntryPoint
-public class DeviceRecordFragment extends Fragment {
+public class PersonRecordFragment extends Fragment {
     private final CompositeDisposable disposable = new CompositeDisposable();
-    private DeviceRecordViewModel viewModel;
-    private FragmentDeviceRecordBinding binding;
+    private PersonRecordViewModel viewModel;
+    private FragmentPersonRecordBinding binding;
 
-    public DeviceRecordFragment() {
-        // Required empty public constructor
+    public PersonRecordFragment() {
     }
 
     @Override
@@ -38,25 +37,27 @@ public class DeviceRecordFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        viewModel = new ViewModelProvider(this).get(DeviceRecordViewModel.class);
-        binding = FragmentDeviceRecordBinding.inflate(inflater, container, false);
-        DeviceRecordAdapter deviceRecordAdapter = new DeviceRecordAdapter(viewModel.deviceRepository, viewModel.personRepository, viewModel.passRecordRepository);
-        binding.recordList.setAdapter(deviceRecordAdapter);
-        subscribeUi(deviceRecordAdapter);
-        setHasOptionsMenu(false);
+        viewModel = new ViewModelProvider(this).get(PersonRecordViewModel.class);
+        binding = FragmentPersonRecordBinding.inflate(inflater, container, false);
+        PersonRecordAdapter personRecordAdapter = new PersonRecordAdapter(viewModel.deviceRepository, viewModel.personRepository, viewModel.passRecordRepository);
+        binding.recordList.setAdapter(personRecordAdapter);
+        subscribeUi(personRecordAdapter);
         return binding.getRoot();
+
+
     }
 
-    private void subscribeUi(DeviceRecordAdapter adapter) {
-        DeviceRecordObserver observer = new DeviceRecordObserver(adapter);
+    private void subscribeUi(PersonRecordAdapter adapter) {
+        PersonRecordObserver observer = new PersonRecordObserver(adapter);
         viewModel.records.observe(getViewLifecycleOwner(), observer);
     }
+
 }
 
-class DeviceRecordObserver implements Observer<List<PassRecord>> {
-    final DeviceRecordAdapter adapter;
+class PersonRecordObserver implements Observer<List<PassRecord>> {
+    final PersonRecordAdapter adapter;
 
-    DeviceRecordObserver(DeviceRecordAdapter adapter) {
+    PersonRecordObserver(PersonRecordAdapter adapter) {
         this.adapter = adapter;
     }
 

@@ -35,4 +35,6 @@ public interface DeviceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertAll(List<Device> devices);
 
+    @Query("DELETE FROM devices WHERE deviceId>0")
+    Completable deleteDevices();
 }

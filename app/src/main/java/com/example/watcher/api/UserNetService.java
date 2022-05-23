@@ -1,5 +1,7 @@
 package com.example.watcher.api;
 
+import static com.example.watcher.adapters.BindingAdapters.SERVER_IP;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -12,7 +14,7 @@ public interface UserNetService {
     static UserNetService create() {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://10.241.125.154:8080")
+                .baseUrl("http://" + SERVER_IP + ":8080")
                 .build().create(UserNetService.class);
     }
 

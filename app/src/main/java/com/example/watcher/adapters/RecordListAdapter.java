@@ -62,7 +62,7 @@ public class RecordListAdapter extends ListAdapter<PassRecord, RecyclerView.View
     }
 }
 
-  class RecordDiffCallBack extends DiffUtil.ItemCallback<PassRecord> {
+class RecordDiffCallBack extends DiffUtil.ItemCallback<PassRecord> {
 
     @Override
     public boolean areItemsTheSame(@NonNull PassRecord oldItem, @NonNull PassRecord newItem) {

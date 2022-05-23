@@ -33,6 +33,7 @@ public class DeviceListFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         deviceListViewModel =
                 new ViewModelProvider(this).get(DeviceListViewModel.class);
+        deviceListViewModel.deviceRepository.refreshLocal();
         binding = FragmentDeviceListBinding.inflate(inflater, container, false);
 
         DeviceListAdapter adapter = new DeviceListAdapter();

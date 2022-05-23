@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface PersonDao {
-    @Query("SELECT * FROM people ORDER BY personId desc")
+    @Query("SELECT * FROM people WHERE personId>0 ORDER BY personId desc")
     LiveData<List<Person>> getPeople();
 
     @Query("SELECT * FROM people WHERE personName =:personName ")
@@ -30,5 +31,11 @@ public interface PersonDao {
     Completable insertPerson(Person person);
 
     @Delete
-    void delete(Person person);
+    Completable delete(Person person);
+
+    @Update
+    Completable updatePerson(Person person);
+
+    @Query("DELETE FROM people WHERE personId>0")
+    Completable deletePeople();
 }

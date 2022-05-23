@@ -23,16 +23,17 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @AndroidEntryPoint
-public class PersonFragment extends Fragment {
+public class PersonListFragment extends Fragment {
 
     private final CompositeDisposable disposable = new CompositeDisposable();
-    private PersonViewModel personViewModel;
+    private PersonListViewModel personListViewModel;
     private FragmentPersonListBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        personViewModel =
-                new ViewModelProvider(this).get(PersonViewModel.class);
+        personListViewModel =
+                new ViewModelProvider(this).get(PersonListViewModel.class);
+        personListViewModel.personRepository.refreshLocal();
         binding = FragmentPersonListBinding.inflate(inflater, container, false);
         PersonListAdapter adapter = new PersonListAdapter();
         binding.personList.setAdapter(adapter);
@@ -47,10 +48,11 @@ public class PersonFragment extends Fragment {
 //        Navigation.findNavController(view).navigate(action);
 //        Intent i  = new Intent(getActivity(), LoginActivity.class);
 //        startActivity(i);
-        disposable.add(personViewModel.insert("李四")
+        disposable.add(personListViewModel.insert("李四")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {},
+                .subscribe(() -> {
+                        },
                         throwable -> Log.e("unable", "Unable to add device", throwable)));
     }
 
@@ -62,7 +64,7 @@ public class PersonFragment extends Fragment {
 
     private void subscribeUi(PersonListAdapter adapter) {
         PersonListObserver observer = new PersonListObserver(adapter);
-        personViewModel.people.observe(getViewLifecycleOwner(), observer);
+        personListViewModel.people.observe(getViewLifecycleOwner(), observer);
     }
 }
 

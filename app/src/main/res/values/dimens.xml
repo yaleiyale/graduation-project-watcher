@@ -8,4 +8,7 @@
     <dimen name="device_item_image_height">95dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="header_margin">24dp</dimen>
+    <dimen name="switch_thumb_stroke_width">40dp</dimen>
+    <dimen name="switch_track_height">25dp</dimen>
+    <dimen name="switch_track_width">25dp</dimen>
 </resources>

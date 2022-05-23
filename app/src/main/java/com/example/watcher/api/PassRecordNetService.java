@@ -1,5 +1,7 @@
 package com.example.watcher.api;
 
+import static com.example.watcher.adapters.BindingAdapters.SERVER_IP;
+
 import com.example.watcher.data.passRecord.PassRecordList;
 
 import retrofit2.Call;
@@ -11,7 +13,7 @@ public interface PassRecordNetService {
     static PassRecordNetService create() {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://10.241.125.154:8080")
+                .baseUrl("http://" + SERVER_IP + ":8080")
                 .build().create(PassRecordNetService.class);
     }
 

@@ -27,7 +27,7 @@ public class LoginViewModel extends ViewModel {
         loginRepository.setCallback(new LoginRepository.MyCallback() {
             @Override
             public void OnLogin() {
-                mCallback.OnLogin();
+                mCallback.OnLogin(account);
             }
 
             @Override
@@ -40,7 +40,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public interface MyCallback {
-        void OnLogin();
+        void OnLogin(String account);
 
         void OnFail();
     }

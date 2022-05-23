@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,12 +46,17 @@ public class PassRecordRepository {
         });
     }
 
+
     public LiveData<List<PassRecord>> getRecords() {
         return passRecordDao.getRecords();
     }
 
-    public LiveData<List<PassRecord>> getRecordById(int deviceId) {
+    public LiveData<List<PassRecord>> getRecordByDid(int deviceId) {
         return passRecordDao.getRecordByDid(deviceId);
+    }
+
+    public LiveData<List<PassRecord>> getRecordByPid(int personId) {
+        return passRecordDao.getRecordByPid(personId);
     }
 
     public Completable insert() {
@@ -66,6 +70,14 @@ public class PassRecordRepository {
         return passRecordDao.insertAll(result.records);
     }
 
+    public LiveData<List<PassRecord>> showPass() {
+        return passRecordDao.showPass();
+    }
+
+    public LiveData<List<PassRecord>> showBan() {
+        return passRecordDao.showBan();
+    }
+
     public Completable update(PassRecord passRecord) {
         return passRecordDao.updateRecord(passRecord);
     }
@@ -74,8 +86,20 @@ public class PassRecordRepository {
         return passRecordDao.delete(passRecord);
     }
 
+    public Completable deleteAll() {
+        return passRecordDao.deleteRecords();
+    }
+
     public void setCallback(MyCallback callback) {
         this.mCallback = callback;
+    }
+
+    public Completable deleteByPersonId(int personId) {
+        return passRecordDao.deleteByPid(personId);
+    }
+
+    public Completable deleteByDeviceId(int deviceId) {
+        return passRecordDao.deleteByDid(deviceId);
     }
 
     public interface MyCallback {

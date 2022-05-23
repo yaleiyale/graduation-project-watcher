@@ -16,12 +16,15 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.device.DeviceListFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.person.PersonDetailFragment">
 
     <data>
+
         <variable
-            name="device"
-            type="com.example.watcher.data.device.Device" />
+            name="person"
+            type="com.example.watcher.data.person.Person" />
+
         <variable
             name="viewModel"
             type="com.example.watcher.ui.device.DeviceDetailViewModel" />
@@ -35,56 +38,38 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
+        <ImageView
+            android:id="@+id/person_item_image"
+            app:imageFromUrl="@{person.imageUrl}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_location"
-            android:textSize="25sp" />
+            android:contentDescription="@string/all_person_item_image"
+            android:scaleType="centerInside" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{device.customName}"
+            android:text="@{person.personName}"
             android:textSize="25sp" />
 
-
-        <TableLayout
+        <Button
+            android:id="@+id/button_watch"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:text="@string/title_remote_watch" />
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_gravity="center">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:id="@+id/button_open"
-                    android:layout_width="150dp"
-                    android:background="@drawable/shape"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_remote_open" />
-
-                <Button
-                    android:id="@+id/button_watch"
-                    android:layout_width="150dp"
-                    android:background="@drawable/shape"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:text="@string/title_remote_watch" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="match_parent">
-
                 <Button
                     android:id="@+id/button_adjust"
                     android:layout_width="150dp"
                     android:background="@drawable/shape"
                     android:layout_height="wrap_content"
-                    android:text="@string/title_adjust_device" />
+                    android:text="@string/str_adjust_person" />
 
                 <Button
                     android:id="@+id/button_delete"
@@ -92,10 +77,10 @@
                     android:background="@drawable/shape"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:text="@string/title_delete_device" />
-            </TableRow>
+                    android:text="@string/str_delete_person" />
 
-        </TableLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

@@ -1,6 +1,7 @@
 package com.example.watcher;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -11,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.watcher.databinding.ActivityLoginBinding;
 import com.example.watcher.ui.login.LoginViewModel;
+
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -30,6 +33,14 @@ public class LoginActivity extends AppCompatActivity {
         // setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
+
+        String access = getPreferences(MODE_PRIVATE).getString("account", "");
+        if (!Objects.equals(access, "")) {
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+            finish();
+            return;
+        }
         setContentView(binding.getRoot());
 
         ActionBar actionBar = getSupportActionBar();
@@ -42,8 +53,12 @@ public class LoginActivity extends AppCompatActivity {
             String password = binding.editPassword.getText().toString();
             viewModel.setCallback(new LoginViewModel.MyCallback() {
                 @Override
-                public void OnLogin() {
+                public void OnLogin(String account) {
                     Intent i = new Intent(loginActivity, MainActivity.class);
+                    SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("account", account);
+                    editor.apply();
                     startActivity(i);
                     finish();
                 }

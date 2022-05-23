@@ -32,6 +32,7 @@
     <Button
         android:id="@+id/button_adding"
         android:layout_width="wrap_content"
+        android:background="@drawable/shape"
         android:layout_height="wrap_content"
         android:text="@string/button_adding_device" />
 

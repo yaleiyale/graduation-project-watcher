@@ -12,10 +12,9 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.watcher.data.device.Device;
 import com.example.watcher.data.person.Person;
 import com.example.watcher.databinding.ListItemPersonBinding;
-import com.example.watcher.ui.device.DeviceListFragmentDirections;
+import com.example.watcher.ui.person.PersonListFragmentDirections;
 
 
 public class PersonListAdapter extends ListAdapter<Person, RecyclerView.ViewHolder> {
@@ -42,7 +41,7 @@ public class PersonListAdapter extends ListAdapter<Person, RecyclerView.ViewHold
         public personViewHolder(@NonNull ListItemPersonBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            // binding.setClickListener(view -> navigateToDeviceDetail(binding.getPerson(), view));
+            binding.setClickListener(view -> navigateToPersonDetail(binding.getPerson(), view));
         }
 
         void bind(Person item) {
@@ -50,8 +49,8 @@ public class PersonListAdapter extends ListAdapter<Person, RecyclerView.ViewHold
             binding.executePendingBindings();
         }
 
-        void navigateToDeviceDetail(Device device, View view) {
-            NavDirections action = DeviceListFragmentDirections.actionNavigationDeviceToDeviceDetailFragment(device.deviceId);
+        void navigateToPersonDetail(Person person, View view) {
+            NavDirections action = PersonListFragmentDirections.actionNavigationPersonToPersonDetailFragment(person.personId);
             Navigation.findNavController(view).navigate(action);
         }
     }

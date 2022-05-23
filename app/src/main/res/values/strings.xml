@@ -31,4 +31,10 @@
     <string name="todo">TODO</string>
     <string name="title_remote_open">远程开锁</string>
     <string name="title_remote_watch">记录查看</string>
+    <string name="str_delete_person">删除人员</string>
+    <string name="str_adjust_person">修改人员信息</string>
+    <string name="str_adjust_power">权限修改</string>
+    <string name="str_adjust_person_name">输入新的人员名称</string>
+    <string name="str_switch_ban">拦截项</string>
+    <string name="str_switch_pass">通过项</string>
 </resources>

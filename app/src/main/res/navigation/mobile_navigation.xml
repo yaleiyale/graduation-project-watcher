@@ -7,9 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_person"
-        android:name="com.example.watcher.ui.person.PersonFragment"
+        android:name="com.example.watcher.ui.person.PersonListFragment"
         android:label="@string/title_person"
-        tools:layout="@layout/fragment_person_list" />
+        tools:layout="@layout/fragment_person_list">
+        <action
+            android:id="@+id/action_navigation_person_to_personDetailFragment"
+            app:destination="@id/personDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_info"
@@ -21,7 +25,7 @@
         android:id="@+id/navigation_device"
         android:name="com.example.watcher.ui.device.DeviceListFragment"
         android:label="@string/title_device"
-        tools:layout="@layout/fragment_device_list" >
+        tools:layout="@layout/fragment_device_list">
         <action
             android:id="@+id/action_navigation_device_to_deviceDetailFragment"
             app:destination="@id/deviceDetailFragment"
@@ -41,7 +45,7 @@
         android:id="@+id/deviceDetailFragment"
         android:name="com.example.watcher.ui.device.DeviceDetailFragment"
         android:label="fragment_device_detail"
-        tools:layout="@layout/fragment_device_detail" >
+        tools:layout="@layout/fragment_device_detail">
         <argument
             android:name="myArg"
             app:argType="integer" />
@@ -60,7 +64,7 @@
         android:id="@+id/addDeviceFragment"
         android:name="com.example.watcher.ui.device.AddDeviceFragment"
         android:label="fragment_add_device"
-        tools:layout="@layout/fragment_add_device" >
+        tools:layout="@layout/fragment_add_device">
         <action
             android:id="@+id/action_addDeviceFragment_to_navigation_device"
             app:destination="@id/navigation_device"
@@ -73,12 +77,39 @@
         android:id="@+id/deviceRecordFragment"
         android:name="com.example.watcher.ui.device.DeviceRecordFragment"
         android:label="fragment_device_record"
-        tools:layout="@layout/fragment_device_record" >
+        tools:layout="@layout/fragment_device_record">
         <argument
             android:name="myArg"
             app:argType="integer" />
         <action
             android:id="@+id/action_deviceRecordFragment_to_deviceDetailFragment"
             app:destination="@id/deviceDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personDetailFragment"
+        android:name="com.example.watcher.ui.person.PersonDetailFragment"
+        android:label="fragment_person_detail"
+        tools:layout="@layout/fragment_person_detail">
+        <action
+            android:id="@+id/action_personDetailFragment_to_navigation_person"
+            app:destination="@id/navigation_person" />
+        <argument
+            android:name="myArg"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_personDetailFragment_to_personRecordFragment"
+            app:destination="@id/personRecordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personRecordFragment"
+        android:name="com.example.watcher.ui.person.PersonRecordFragment"
+        android:label="fragment_person_record"
+        tools:layout="@layout/fragment_person_record">
+        <action
+            android:id="@+id/action_personRecordFragment_to_personDetailFragment"
+            app:destination="@id/personDetailFragment" />
+        <argument
+            android:name="myArg"
+            app:argType="integer" />
     </fragment>
 </navigation>
