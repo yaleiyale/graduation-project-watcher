@@ -1,6 +1,7 @@
 package com.example.watcher.ui.passRecord;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,9 @@ import com.example.watcher.databinding.FragmentRecordListBinding;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @AndroidEntryPoint
 public class RecordListFragment extends Fragment {
@@ -72,14 +75,14 @@ public class RecordListFragment extends Fragment {
         binding = null;
     }
 
-//    private void toInsert(View view) {
-//        disposable.add(recordListViewModel.insert()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(() -> {
-//                        },
-//                        throwable -> Log.e("unable", "Unable to add device", throwable)));
-//    }
+    private void toInsert(View view) {
+        disposable.add(recordListViewModel.insert()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                        },
+                        throwable -> Log.e("unable", "Unable to add device", throwable)));
+    }
 
     private void subscribeUi(RecordListAdapter adapter) {
         RecordListObserver observer = new RecordListObserver(adapter);
