@@ -18,7 +18,7 @@ public interface UserNetService {
                 .build().create(UserNetService.class);
     }
 
-    @POST("/getuserlist")
+    @POST("/login")
     @FormUrlEncoded
     Call<Boolean> login(@Field("account") String account, @Field("password") String password);
 
